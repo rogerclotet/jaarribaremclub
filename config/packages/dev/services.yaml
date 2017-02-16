@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Service\FileHandler:
+        class: App\Service\FileSystemFileHandler
+        arguments:
+            - '%env(UPLOADS_DIR)%'
+
+    jac.imagine.data.loader:
+        class: Liip\ImagineBundle\Binary\Loader\StreamLoader
+        arguments:
+            - '%env(UPLOADS_DIR)%/'
+        tags:
+            - { name: 'liip_imagine.binary.loader', loader: 'jac.loader' }

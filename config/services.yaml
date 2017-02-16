@@ -1,0 +1,58 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: "ca"
+    menu:
+        blog: "Notícies"
+        about: "Qui som?"
+        history: "Edicions Anteriors"
+        gallery: "Galeria Fotogràfica"
+        location: "Localització"
+        contact: "Contacte"
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    # App\Controller\:
+    #    resource: '../src/Controller'
+    #    tags: ['controller.service_arguments']
+
+    App\Command\:
+        resource: '../src/Command/*'
+        tags: ['console.command']
+
+    App\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%env(APP_DEBUG)%'
+            $menu: '%menu%'
+
+    App\Service\FileHandler:
+        class: App\Service\NoopFileHandler
+
+    jac.keen_io:
+        class: KeenIO\Client\KeenIOClient
+        factory: ['App\Service\KeenIOFactory', get]
+        arguments:
+            - '%keen%'
+
+    jac.listener.response_metrics:
+        class: App\Listener\RequestMetricsListener
+        arguments:
+            - '@jac.keen_io'
+            - '%env(APP_ENV)%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.terminate }

@@ -1,0 +1,14 @@
+parameters:
+    env(MAILER_TRANSPORT): "null"
+    env(MAILER_HOST): ""
+    env(MAILER_USERNAME): ""
+    env(MAILER_PASSWORD): ""
+
+swiftmailer:
+    spool: { type: 'memory' }
+    transport: "%env(MAILER_TRANSPORT)%"
+    host:      "%env(MAILER_HOST)%"
+    username:  "%env(MAILER_USERNAME)%"
+    password:  "%env(MAILER_PASSWORD)%"
+    port:       25
+    encryption: tls

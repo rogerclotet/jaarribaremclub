@@ -1,0 +1,84 @@
+@import 'main';
+
+.section-blog {
+  .well {
+    padding: 30px;
+
+    h4 {
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    ul {
+      margin-bottom: 0;
+    }
+
+    .countdown {
+      opacity: 0.4;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+  }
+
+  article {
+    overflow: hidden;
+
+    &:not(:last-of-type):after {
+      content: url("../../public/images/divider.png");
+    }
+
+    .article-container {
+      padding: 0 30px 20px 30px;
+    }
+
+    .image-container {
+      padding: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        border: 1px solid $secondaryColor;
+      }
+    }
+
+    header {
+      h1 {
+        font-size: 24px;
+      }
+
+      .created-at {
+        font-size: 18px;
+        text-align: right;
+        opacity: 0.3;
+      }
+
+      form {
+        display: inline;
+      }
+    }
+
+    ul > li {
+      color: $primaryColor;
+
+      .text {
+        color: $textColor;
+      }
+    }
+  }
+
+  .modal {
+    text-align: center;
+
+    .modal-dialog {
+      display: inline-block;
+      width: auto;
+      max-width: 90%;
+    }
+  }
+
+  .pagination-row {
+    padding: 5px;
+  }
+}

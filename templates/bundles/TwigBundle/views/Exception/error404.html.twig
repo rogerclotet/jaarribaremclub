@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% set section_title = 'T\'has perdut?' %}
+
+{% block body %}
+    <h1>Error 404</h1>
+
+        <h3>
+            No s'ha pogut trobar la pàgina sol·licitada
+        </h3>
+
+    <div class="alert alert-danger">
+        Sisplau, comprova que no tinguis errors a l'adreça, i si l'error persisteix posa't en
+        <a href="{{ path('contact') }}">contacte</a>
+        amb nosaltres i ho solucionarem el més aviat possible.
+    </div>
+{% endblock %}

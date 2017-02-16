@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% import 'web/forms.html.twig' as forms %}
+
+{% set section_title = 'Galeria Fotogràfica' %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ forms.admin('Pujar fotos', form) }}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                Cada any intentem fer una caminada única, i per això, creiem necessari que tothom pugui tenir la possibilitat de tornar enrere, i reviure aquells bons moments viscuts durant els diferents recorreguts que vàrem fer tots plegats.
+            </p>
+
+            <p>
+                Així doncs, és un plaer posar a la vostra disposició, tan a la dels participants com a la de la gent interessada, una Galeria Fotogràfica a la qual podeu trobar-hi totes les fotografies recollides. Aquestes es troben dividies en àlbums, segons l’any de la caminada per tal de facilitar-ne la cerca. Podeu accedir-hi a trevés dels enllaços situats a la dreta del text.
+            </p>
+
+            <p>
+                A més a més, si ho creieu convenient, podeu adreçar-vos a nosaltres i enviar-nos fotografies d’altres anys que no contingui el nostre banc d’imatges. D’aquesta manera podrem enriquir els records de les, ja passades, caminades. Per fer-ho, només cal que les envieu per e-mail a la següent adreça de correu:
+            </p>
+
+            <p>
+                <a href="mailto:informacio@jaarribaremclub.com">
+                    informacio@jaarribaremclub.com
+                </a>
+            </p>
+
+            <p>
+                Moltes gràcies per la vostre col·laboració!
+            </p>
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group">
+                {% for album in albums %}
+                    <li class="list-group-item">
+                        <a href="{{ path('album', {'number': album.caminada.number}) }}">
+                            {{ album.caminada.number }}a Caminada ({{ album.caminada.year }})
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

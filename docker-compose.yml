@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  php:
+    build: docker/php-fpm
+    volumes:
+      - ./:/code:cached
+      - ./var/log/symfony:/var/www/symfony/var/logs:cached
+
+  nginx:
+    build: docker/nginx
+    ports:
+      - '8080:80'
+    links:
+      - php
+    volumes_from:
+      - php
+    volumes:
+      - ./var/log/nginx/:/var/log/nginx:cached

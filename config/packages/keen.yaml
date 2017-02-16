@@ -1,0 +1,11 @@
+parameters:
+    env(KEEN_ENABLED): false
+    env(KEEN_PROJECT_ID): ""
+    env(KEEN_WRITE_KEY): ""
+    env(KEEN_READ_KEY): ""
+
+    keen:
+        enabled: '%env(KEEN_ENABLED)%'
+        projectId: '%env(KEEN_PROJECT_ID)%'
+        writeKey: '%env(KEEN_WRITE_KEY)%'
+        readKey: '%env(KEEN_READ_KEY)%'

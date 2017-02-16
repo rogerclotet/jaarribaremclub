@@ -1,0 +1,15 @@
+<p>
+    Missatge enviat a través del formulari de contacte de la web.
+</p>
+
+<p>
+    <strong>
+        De: {{ message.name ~ ' <' ~ message.email ~ '>' }}
+    </strong>
+</p>
+
+<hr>
+
+<p>
+    {{ message.body|nl2br }}
+</p>

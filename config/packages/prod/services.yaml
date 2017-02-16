@@ -1,0 +1,35 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Service\FileHandler:
+        class: App\Service\S3FileHandler
+        arguments:
+            - '@jac.aws.s3'
+            - '%env(S3_BUCKET_NAME)%'
+
+    jac.aws.s3:
+        class: Aws\S3\S3Client
+        factory: [Aws\S3\S3Client, factory]
+        arguments:
+            -
+                credentials: { key: "%env(AWS_ACCESS_KEY_ID)%", secret: "%env(AWS_SECRET_ACCESS_KEY)%" }
+                region: '%env(AWS_S3_REGION)%'
+                version: '%env(AWS_S3_VERSION)%'
+
+    jac.imagine.cache.resolver.s3:
+        class: Liip\ImagineBundle\Imagine\Cache\Resolver\AwsS3Resolver
+        arguments:
+            - '@jac.aws.s3'
+            - '%env(S3_BUCKET_NAME)%'
+        tags:
+            - { name: 'liip_imagine.cache.resolver', resolver: 'jac.resolver' }
+
+    jac.imagine.data.loader:
+        class: App\Service\RemoteStreamLoader
+        arguments:
+            - '@liip_imagine'
+            - '%env(STATIC_URL)%'
+        tags:
+            - { name: 'liip_imagine.binary.loader', loader: 'jac.loader' }

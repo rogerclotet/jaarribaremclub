@@ -1,0 +1,24 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+
+    templating:
+        engines: ['twig']
+
+    #csrf_protection: true
+    #http_method_override: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: ~
+        cookie_secure: auto
+        cookie_samesite: lax
+
+    trusted_hosts:   ~
+    # trusted_proxies: [10.0.0.0/8, 81.169.144.135, 2a03:2880::/32] # Heroku ELB and Strato proxy
+    #   The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true

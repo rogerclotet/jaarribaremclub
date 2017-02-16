@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% set section_title = 'Error' %}
+
+{% block body %}
+    <h1>Hem tingut un error inesperat</h1>
+
+    <div class="alert alert-danger">
+        Sisplau, torna-ho a provar més tard, i si l'error persisteix posa't en
+        <a href="{{ path('contact') }}">contacte</a>
+        amb nosaltres i ho solucionarem el més aviat possible.
+    </div>
+{% endblock %}

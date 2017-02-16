@@ -1,0 +1,23 @@
+Name: Nom
+Email: Email
+Body: Missatge
+Send: Enviar
+Title: Títol
+Text: Text
+Image: Imatge
+Files: Fitxers
+Add: Afegir
+Number: Número
+Year: Any
+Path: Recorregut (separat per guions)
+Description: Descripció
+Notes: Notes (opcional)
+Map: Mapa
+Elevation: Relleu
+Caminada: Caminada
+Photos: 'Fotos (mida màxima: 4MB per foto)'
+Submit: Enviar
+Leaflet: Fulletó
+Gps track: Track per a GPS
+Datetime: Data
+Place: Lloc

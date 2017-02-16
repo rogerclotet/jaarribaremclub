@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% import 'utils.html.twig' as utils %}
+{% import 'web/forms.html.twig' as forms %}
+
+{% set section_title = caminada.number ~ 'a Caminada (' ~ caminada.year ~ ')' %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ forms.admin('Editar caminada', form) }}
+    {% endif %}
+
+    {% if caminada.image != '' %}
+        <img src="{{ static_url ~ caminada.image.path }}" class="img-responsive center-block">
+    {% endif %}
+
+    <h3>Recorregut</h3>
+    <p>{{ caminada.path|join(' - ') }}</p>
+
+    <h3>Descripció</h3>
+    <p>{{ caminada.description|nl2br }}</p>
+
+    {% if caminada.notes != '' %}
+        <h3>Notes</h3>
+        <p>{{ caminada.notes|nl2br }}</p>
+    {% endif %}
+
+    {% if caminada.leaflet != '' or caminada.gpsTrack != '' %}
+        <h3>Fitxers</h3>
+        <ul class="caminada-files">
+            {% if caminada.leaflet != '' %}
+                <li>
+                    <span class="text">
+                        <a href="{{ static_url ~ caminada.leaflet.path }}">Fulletó</a>
+                        ({{ utils.bytesToSize(caminada.leaflet.size) }})
+                    </span>
+                </li>
+            {% endif %}
+            {% if caminada.gpsTrack != '' %}
+                <li>
+                    <span class="text">
+                        <a href="{{ static_url ~ caminada.gpsTrack.path }}">Track per a GPS</a>
+                        ({{ utils.bytesToSize(caminada.gpsTrack.size) }})
+                    </span>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    {% if caminada.map != '' %}
+        <br>
+        <img src="{{ static_url ~ caminada.map.path }}" class="img-responsive center-block">
+    {% endif %}
+
+    {% if caminada.elevation != '' %}
+        <br>
+        <img src="{{ static_url ~ caminada.elevation.path }}" class="img-responsive center-block">
+    {% endif %}
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path('history') }}">
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Tornar
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: s938gBs03baS9Nns0
+                        roles: ROLE_ADMIN
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            form_login:
+                login_path: login
+                check_path: login
+
+            logout: ~
+
+    access_control:
+        # Allow to send contact messages to everyone
+        - { path: ^/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Allow logging in to everyone
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { methods: [POST], roles: ROLE_ADMIN }

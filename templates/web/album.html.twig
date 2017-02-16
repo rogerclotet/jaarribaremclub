@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% set section_title = album.caminada.number ~ 'a Caminada (' ~ album.caminada.year ~ ')' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('album') }}
+{% endblock %}
+
+{% block body %}
+    <div class="gallery-album">
+        {% for key, photo in album.photos %}
+            {% if loop.index % 6 == 1 %}
+                <div class="row">
+            {% endif %}
+
+            <div class="col-md-2">
+                <div data-key="{{ key }}" class="image-container thumbnail">
+                    <img src="{{ photo.path | imagine_filter('thumb_album') }}">
+                </div>
+            </div>
+
+            {% if loop.index % 6 == 0 or (loop.last and loop.length % 6 != 0) %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="album" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="album-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner" role="listbox">
+                            {% for key, photo in album.photos %}
+                                <div id="photo-{{ key }}" class="item{% if loop.first %} active{% endif %}">
+                                    <img src="{{ static_url ~ photo.path }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <a class="left carousel-control" href="#album-carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#album-carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path('gallery') }}">
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Tornar
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

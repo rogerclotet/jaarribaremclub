@@ -1,0 +1,29 @@
+@import 'main';
+
+.section-history {
+  .caminada {
+    a {
+      font-weight: normal !important;
+
+      &:hover {
+        color: $textColor;
+
+        .panel-title {
+          color: $primaryColor;
+        }
+      }
+    }
+  }
+
+  .panel-title {
+    color: $textColor;
+  }
+}
+
+ul.caminada-files > li {
+  color: $primaryColor;
+
+  .text {
+    color: $textColor;
+  }
+}

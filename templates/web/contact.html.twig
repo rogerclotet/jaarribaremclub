@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% set section_title = 'Contacte' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                Us agraïriem que ens enviéssiu comentaris i/o suggeriments. Així ens ajudareu a millorar la
+                Caminada Popular Vall de Lord i aquesta pàgina web.
+            </p>
+
+            <p>
+                Si teniu fotos d'alguna de les edicions de la caminada i ens les voleu enviar
+                (o si teniu problemes amb el formulari de contacte), també podeu contactar-nos via email a
+                <a href="mailto:informacio@jaarribaremclub.com">informacio@jaarribaremclub.com</a>.
+            </p>
+
+            <p>
+                MOLTES GRÀCIES!
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') and messages|length > 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Missatges rebuts</h3>
+                <ul class="list-group">
+                    {% for message in messages %}
+                        <li class="list-group-item">
+                            <strong>{{ message.name }} ({{ message.email }})</strong>
+                            <br>
+                            {{ message.body|nl2br }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

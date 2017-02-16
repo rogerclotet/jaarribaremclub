@@ -1,0 +1,58 @@
+check:
+    stage: check
+    image: php:7.2
+    cache:
+        paths:
+            - vendor/
+            - .php_cs.cache
+    script: # TODO: build a custom image and avoid installing dependencies every time
+        - apt-get update
+        - apt-get install -y zlib1g-dev libpq-dev git libicu-dev libxml2-dev libzip-dev libpng-dev unzip sqlite3 libsqlite3-dev
+        - docker-php-ext-configure intl
+        - docker-php-ext-install intl pdo pdo_sqlite zip xml gd exif json
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
+        - php composer.phar install
+        - bin/console doctrine:schema:update --env=test --force
+        - make check-ci
+
+assets:
+    stage: build
+    image: kkarczmarczyk/node-yarn
+    script:
+        - yarn install
+        - yarn encore production
+    artifacts:
+        paths:
+            - public/build
+    only:
+        - master
+        - tags
+
+staging:
+    stage: deploy
+    image: ruby:2.4
+    dependencies:
+        - assets
+    script:
+        - gem install dpl
+        - dpl --provider=heroku --skip_cleanup --app=jaarribaremclub-staging --api-key=$HEROKU_API_KEY
+    only:
+        - master
+
+production:
+    stage: deploy
+    image: ruby:2.4
+    dependencies:
+        - assets
+    script:
+        - gem install dpl
+        - dpl --provider=heroku --skip_cleanup --app=jaarribaremclub --api-key=$HEROKU_API_KEY
+    only:
+        - tags
+
+stages:
+    - check
+    - build
+    - deploy

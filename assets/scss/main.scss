@@ -1,0 +1,219 @@
+$primaryColor: #669933;
+$secondaryColor: #99cc66;
+$textColor: #333333;
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+  font-weight: bold !important;
+  color: $textColor;
+
+  &:hover, &:link:hover, &:active:hover, &:visited:hover {
+    color: $primaryColor;
+  }
+
+  &:link, &:active, &:visited {
+    color: inherit;
+  }
+}
+
+@mixin container() {
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: 5px auto 5px;
+}
+
+.header-container {
+  @include container();
+  background: url("../../public/images/header/1.png") $primaryColor no-repeat;
+  height: 117px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  padding: 10px 20px;
+
+  @media (min-width: 768px) {
+    &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      width: 164px;
+      height: 85px;
+      background: url("../../public/images/leaves.png") -3px -7px no-repeat;
+      transform: scaleX(-1);
+    }
+  }
+
+  .subtitle {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    font-size: 24px;
+  }
+
+  a {
+    font-weight: normal !important;
+    color: white !important;
+  }
+}
+
+.navbar-nav > li > a {
+  padding-top:5px !important; padding-bottom:5px !important;
+}
+
+.navbar {
+  min-height:24px !important;
+}
+
+.navbar-collapse {
+  padding-left: 0;
+}
+
+.navbar-header {
+  .glyphicon {
+    color: white;
+  }
+}
+
+.navbar-brand {
+  font-size: 30px;
+  font-weight: 100;
+  color: white;
+}
+
+.nav-container {
+  @include container();
+  background-color: $secondaryColor;
+
+  @media (max-width: 768px) {
+    background-color: $primaryColor;
+  }
+
+  li {
+    a {
+      color: $textColor;
+
+      &:visited, &:active {
+        background-color: $secondaryColor;
+      }
+
+      &:hover, &.current {
+        color: white;
+        background-color: $primaryColor;
+      }
+
+      @media (max-width: 768px) {
+        margin-left: 10px;
+        color: white !important;
+
+        &:visited, &:active {
+          background-color: $primaryColor;
+        }
+
+        &:hover, &.current {
+          color: $textColor !important;
+          background-color: $secondaryColor;
+        }
+      }
+    }
+
+    @media (min-width: 768px) {
+      &:first-child a {
+        padding-left: 15px;
+        border-radius: 10px 0 0 10px;
+      }
+    }
+  }
+
+  .logged-in {
+    position: absolute;
+    right: 15px;
+    line-height: 30px;
+
+    a:hover {
+      color: #a94442;
+    }
+  }
+}
+
+.main-container {
+  @include container();
+  padding: 0 5px 5px 5px;
+  background-color: $primaryColor;
+
+  @media (min-width: 768px) {
+    background: url("../../public/images/leaves.png") $primaryColor -35px -30px no-repeat;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 5px;
+  }
+
+  > h1 {
+    padding: 0 0 0 130px;
+    margin: 0;
+    line-height: 40px;
+    font-size: 36px;
+    font-weight: 100;
+    color: white;
+  }
+
+  .inner-container {
+    background-color: white;
+    border-radius: 6px;
+    padding: 15px;
+  }
+}
+
+.footer-container {
+  @include container();
+  position: relative;
+  background-color: $primaryColor;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 164px;
+    height: 100%;
+    background: url("../../public/images/leaves.png") -20px -10px no-repeat;
+    transform: rotate(180deg);
+    opacity: 0.4;
+  }
+
+  .colaboradors {
+    text-align: center;
+
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      margin:0;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  span {
+    text-transform: uppercase;
+    position: absolute;
+    right: 140px;
+    top: 15px;
+    color: white;
+    opacity: 0.4;
+  }
+}
+
+.credits {
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 10px;
+}
