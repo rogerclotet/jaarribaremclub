@@ -1,6 +1,6 @@
 check:
     stage: check
-    image: rogerclotet:php7-symfony
+    image: rogerclotet/php7-symfony
     cache:
         paths:
             - vendor/
