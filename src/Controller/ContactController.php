@@ -32,7 +32,7 @@ class ContactController extends AbstractController
     ) {
         $this->mailer           = $mailer;
         $this->session          = $session;
-        $this->security = $security;
+        $this->security         = $security;
         $this->reCaptchaSiteKey = $reCaptchaSiteKey;
     }
 
@@ -121,6 +121,6 @@ class ContactController extends AbstractController
     {
         $user = $this->security->getUser();
 
-        return $user !== null && in_array('ROLE_ADMIN', $user->getRoles());
+        return null !== $user && in_array('ROLE_ADMIN', $user->getRoles());
     }
 }
