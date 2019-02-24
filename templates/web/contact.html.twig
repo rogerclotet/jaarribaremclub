@@ -62,7 +62,7 @@
         grecaptcha.ready(function() {
             grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'contact'}).then(function(token) {
                 fetch('/recaptcha/verify?token=' + token, {method: 'POST', body: ''})
-                    .then(() => console.log('ReCaptcha verified'))
+                    .then(() => {})
                     .catch(err => console.log('ReCaptcha could not be verified', err));
             });
         });

@@ -34,7 +34,7 @@ class ReCaptchaController extends AbstractController
      */
     public function verifyAction(Request $request)
     {
-        $response = $this->reCaptcha->verify($request->get('token') . 'fake');
+        $response = $this->reCaptcha->verify($request->get('token'));
 
         $this->keenIOClient->addEvent('recaptcha', ['success' => $response->isSuccess(), 'errors' => $response->getErrorCodes()]);
 
