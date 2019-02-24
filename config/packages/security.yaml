@@ -37,6 +37,8 @@ security:
     access_control:
         # Allow to send contact messages to everyone
         - { path: ^/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Allow validating recaptcha
+        - { path: ^/recaptcha, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # Allow logging in to everyone
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { methods: [POST], roles: ROLE_ADMIN }

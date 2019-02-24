@@ -42,7 +42,8 @@
         "leafo/scssphp": "^0.6.6",
         "liip/imagine-bundle": "^2.1",
         "aws/aws-sdk-php": "^3.22",
-        "keen-io/keen-io": "~2.5"
+        "keen-io/keen-io": "~2.5",
+        "google/recaptcha": "^1.2"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.2",

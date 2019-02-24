@@ -54,3 +54,17 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'contact'}).then(function(token) {
+                fetch('/recaptcha/verify?token=' + token, {method: 'POST', body: ''})
+                    .then(() => console.log('ReCaptcha verified'))
+                    .catch(err => console.log('ReCaptcha could not be verified', err));
+            });
+        });
+    </script>
+{% endblock %}

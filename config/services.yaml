@@ -12,6 +12,7 @@ parameters:
         gallery: "Galeria Fotogràfica"
         location: "Localització"
         contact: "Contacte"
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
 
 services:
     _defaults:
@@ -43,8 +44,7 @@ services:
     App\Service\FileHandler:
         class: App\Service\NoopFileHandler
 
-    jac.keen_io:
-        class: KeenIO\Client\KeenIOClient
+    KeenIO\Client\KeenIOClient:
         factory: ['App\Service\KeenIOFactory', get]
         arguments:
             - '%keen%'
@@ -52,7 +52,15 @@ services:
     jac.listener.response_metrics:
         class: App\Listener\RequestMetricsListener
         arguments:
-            - '@jac.keen_io'
+            - '@KeenIO\Client\KeenIOClient'
             - '%env(APP_ENV)%'
         tags:
             - { name: kernel.event_listener, event: kernel.terminate }
+
+    ReCaptcha\ReCaptcha:
+        arguments:
+            $secret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
+
+    App\Controller\ContactController:
+        arguments:
+            $reCaptchaSiteKey: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
