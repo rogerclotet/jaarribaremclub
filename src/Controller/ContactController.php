@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,8 +24,8 @@ class ContactController extends AbstractController
 
     public function __construct(\Swift_Mailer $mailer, SessionInterface $session, string $reCaptchaSiteKey)
     {
-        $this->mailer = $mailer;
-        $this->session = $session;
+        $this->mailer           = $mailer;
+        $this->session          = $session;
         $this->reCaptchaSiteKey = $reCaptchaSiteKey;
     }
 
@@ -49,7 +48,7 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->getParameter('kernel.environment') === 'prod' && !$this->session->get(ReCaptchaController::VALID_RECAPTCHA, false)) {
+            if ('prod' === $this->getParameter('kernel.environment') && !$this->session->get(ReCaptchaController::VALID_RECAPTCHA, false)) {
                 $this->addFlash('danger', 'No s\'ha pogut verificar el ReCaptcha, pots tornar-ho a provar o enviar un email a informacio@jaarribaremclub.com');
             } else {
                 $message = $form->getData();
@@ -79,8 +78,8 @@ class ContactController extends AbstractController
         }
 
         return $this->render('web/contact.html.twig', [
-            'form'     => $form->createView(),
-            'messages' => $this->getDoctrine()->getRepository(Message::class)->findAll(),
+            'form'               => $form->createView(),
+            'messages'           => $this->getDoctrine()->getRepository(Message::class)->findAll(),
             'recaptcha_site_key' => $this->reCaptchaSiteKey,
         ]);
     }

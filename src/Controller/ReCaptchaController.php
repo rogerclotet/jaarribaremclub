@@ -24,9 +24,9 @@ class ReCaptchaController extends AbstractController
 
     public function __construct(ReCaptcha $reCaptcha, KeenIOClient $keenIOClient, SessionInterface $session)
     {
-        $this->reCaptcha = $reCaptcha;
+        $this->reCaptcha    = $reCaptcha;
         $this->keenIOClient = $keenIOClient;
-        $this->session = $session;
+        $this->session      = $session;
     }
 
     /**
@@ -34,7 +34,7 @@ class ReCaptchaController extends AbstractController
      */
     public function verifyAction(Request $request)
     {
-        $response = $this->reCaptcha->verify($request->get('token').'fake');
+        $response = $this->reCaptcha->verify($request->get('token') . 'fake');
 
         $this->keenIOClient->addEvent('recaptcha', ['success' => $response->isSuccess(), 'errors' => $response->getErrorCodes()]);
 
