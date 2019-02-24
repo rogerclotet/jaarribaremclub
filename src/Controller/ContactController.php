@@ -54,7 +54,7 @@ class ContactController extends AbstractController
         $form = $formBuilder->getForm();
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && $this->isAdmin()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             if ('prod' === $this->getParameter('kernel.environment') && !$this->session->get(ReCaptchaController::VALID_RECAPTCHA, false)) {
                 $this->addFlash('danger', 'No s\'ha pogut verificar el ReCaptcha, pots tornar-ho a provar o enviar un email a informacio@jaarribaremclub.com');
             } else {
