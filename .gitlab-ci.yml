@@ -6,7 +6,7 @@ check:
             - vendor/
             - .php_cs.cache
     script:
-        - php composer.phar install
+        - composer install
         - bin/console doctrine:schema:update --env=test --force
         - make check-ci
 
