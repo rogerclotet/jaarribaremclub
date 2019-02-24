@@ -2,7 +2,7 @@ version: '2'
 
 services:
   php:
-    image: rogerclotet:php7-symfony
+    build: docker/php-fpm
     volumes:
       - ./:/code:cached
       - ./var/log/symfony:/var/www/symfony/var/logs:cached
