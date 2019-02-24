@@ -12,6 +12,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/contacte")
@@ -20,12 +21,18 @@ class ContactController extends AbstractController
 {
     private $mailer;
     private $session;
+    private $security;
     private $reCaptchaSiteKey;
 
-    public function __construct(\Swift_Mailer $mailer, SessionInterface $session, string $reCaptchaSiteKey)
-    {
+    public function __construct(
+        \Swift_Mailer $mailer,
+        SessionInterface $session,
+        Security $security,
+        string $reCaptchaSiteKey
+    ) {
         $this->mailer           = $mailer;
         $this->session          = $session;
+        $this->security = $security;
         $this->reCaptchaSiteKey = $reCaptchaSiteKey;
     }
 
@@ -47,7 +54,7 @@ class ContactController extends AbstractController
         $form = $formBuilder->getForm();
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isAdmin()) {
             if ('prod' === $this->getParameter('kernel.environment') && !$this->session->get(ReCaptchaController::VALID_RECAPTCHA, false)) {
                 $this->addFlash('danger', 'No s\'ha pogut verificar el ReCaptcha, pots tornar-ho a provar o enviar un email a informacio@jaarribaremclub.com');
             } else {
@@ -77,11 +84,16 @@ class ContactController extends AbstractController
             $form = $formBuilder->getForm();
         }
 
-        return $this->render('web/contact.html.twig', [
+        $parameters = [
             'form'               => $form->createView(),
-            'messages'           => $this->getDoctrine()->getRepository(Message::class)->findAll(),
             'recaptcha_site_key' => $this->reCaptchaSiteKey,
-        ]);
+        ];
+
+        if ($this->isAdmin()) {
+            $parameters['messages'] = $this->getDoctrine()->getRepository(Message::class)->findBy([], ['id' => 'DESC'], 10);
+        }
+
+        return $this->render('web/contact.html.twig', $parameters);
     }
 
     private function sendMail(Message $message)
@@ -103,5 +115,12 @@ class ContactController extends AbstractController
         if (!$successful) {
             throw new \Exception('Failed to send mail');
         }
+    }
+
+    private function isAdmin(): bool
+    {
+        $user = $this->security->getUser();
+
+        return $user !== null && in_array('ROLE_ADMIN', $user->getRoles());
     }
 }
