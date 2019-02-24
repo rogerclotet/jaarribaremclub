@@ -1,18 +1,11 @@
 check:
     stage: check
-    image: php:7.2
+    image: rogerclotet:php7-symfony
     cache:
         paths:
             - vendor/
             - .php_cs.cache
-    script: # TODO: build a custom image and avoid installing dependencies every time
-        - apt-get update
-        - apt-get install -y zlib1g-dev libpq-dev git libicu-dev libxml2-dev libzip-dev libpng-dev unzip sqlite3 libsqlite3-dev
-        - docker-php-ext-configure intl
-        - docker-php-ext-install intl pdo pdo_sqlite zip xml gd exif json
-        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-        - php composer-setup.php
-        - php -r "unlink('composer-setup.php');"
+    script:
         - php composer.phar install
         - bin/console doctrine:schema:update --env=test --force
         - make check-ci
