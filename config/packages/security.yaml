@@ -8,7 +8,7 @@ security:
             memory:
                 users:
                     admin:
-                        password: s938gBs03baS9Nns0
+                        password: '%env(ADMIN_PASSWORD)%'
                         roles: ROLE_ADMIN
 
     encoders:
