@@ -1,0 +1,11 @@
+.links {
+  .link {
+    .link-container {
+      padding: 10px 30px 10px 30px;
+    }
+
+    &:not(:last-of-type):after {
+      content: url("../../public/images/divider.png");
+    }
+  }
+}
