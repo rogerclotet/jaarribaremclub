@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20190224232430 extends AbstractMigration
+final class Version20190225014800 extends AbstractMigration
 {
     private const TABLE_NAME = 'link';
 
@@ -21,7 +21,7 @@ final class Version20190224232430 extends AbstractMigration
         $linksTable = $schema->createTable(self::TABLE_NAME);
         $linksTable->addColumn('id', 'integer', ['autoincrement' => true, 'unsigned' => true, 'notnull' => true]);
         $linksTable->addColumn('title', 'string', ['notnull' => true, 'length' => 255]);
-        $linksTable->addColumn('description', 'string', ['length' => 2047]);
+        $linksTable->addColumn('description', 'string', ['notnull' => false, 'length' => 2047]);
         $linksTable->addColumn('url', 'string', ['notnull' => true, 'length' => 1023]);
 
         $linksTable->setPrimaryKey(['id']);
