@@ -4,6 +4,17 @@
 
     .link-container {
       padding: 10px 30px 10px 30px;
+      display: flex;
+
+      .contents {
+        flex-grow: 1;
+      }
+
+      .order-arrows {
+        display: flex;
+        flex-direction: column;
+        padding-right: 20px;
+      }
     }
 
     &:not(:last-of-type):after {

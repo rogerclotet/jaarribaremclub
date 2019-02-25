@@ -31,6 +31,11 @@ class Link
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $priority;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Link
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

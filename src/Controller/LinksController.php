@@ -7,6 +7,8 @@ use App\Form\LinkType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -27,9 +29,7 @@ class LinksController extends AbstractController
      */
     public function linksAction(): Response
     {
-        $links = $this->getDoctrine()
-            ->getRepository(Link::class)
-            ->findBy([], ['title' => 'ASC']);
+        $links = $this->getSortedLinks();
 
         $parameters = ['links' => $links];
 
@@ -77,5 +77,60 @@ class LinksController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('links');
+    }
+
+    /**
+     * @Route("/{id}", name="change_link_priority", methods={"POST"})
+     */
+    public function changePriorityAction(int $id, Request $request): Response
+    {
+        $links = $this->getSortedLinks();
+
+        if ($request->get('down')) {
+            $increment = 1;
+        } elseif ($request->get('up')) {
+            $increment = -1;
+        } else {
+            return $this->redirectToRoute('links');
+        }
+
+        foreach ($links as $key => $link) {
+            if ($link->getId() === $id) {
+                $links = LinksController::swapLinks($links, $key, $key + $increment);
+                break;
+            }
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $max = count($links);
+        foreach ($links as $i => $link) {
+            $link->setPriority($max - $i);
+            $em->persist($link);
+        }
+
+        $em->flush();
+
+        return $this->redirectToRoute('links');
+    }
+
+    private function getSortedLinks()
+    {
+        return $this->getDoctrine()
+                    ->getRepository(Link::class)
+                    ->findBy([], ['priority' => 'DESC']);
+    }
+
+    private static function swapLinks(array $links, int $firstKey, int $secondKey): array
+    {
+        if (!isset($links[$firstKey]) || !isset($links[$secondKey])) {
+            return $links;
+        }
+
+        $aux = $links[$firstKey];
+        $links[$firstKey] = $links[$secondKey];
+        $links[$secondKey] = $aux;
+
+        return $links;
     }
 }

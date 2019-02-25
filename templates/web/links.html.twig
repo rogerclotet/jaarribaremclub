@@ -11,46 +11,59 @@
 
     {% if links | length > 0 %}
         <div class="links">
-            {% for link in links %}
+            {% for key, link in links %}
                 <div class="link">
                     <div class="link-container">
                         {% if is_granted('ROLE_ADMIN') %}
-                            <p class="text-right">
+                        <form action="{{ path('change_link_priority', {'id': link.id}) }}" method="post" class="admin order-arrows">
+                            <button type="submit" name="up" value="true" class="btn btn-default btn-xs"{% if key == 0 %} disabled{% endif %}>
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                            </button>
+                            <button type="submit" name="down" value="true" class="btn btn-default btn-xs"{% if key == links|length - 1 %} disabled{% endif %}>
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                        {% endif %}
+
+                        <div class="contents">
+                            <a href="//{{ link.url }}" target="_blank">
+                                <h4>
+                                    <img src="https://s2.googleusercontent.com/s2/favicons?domain_url={{ link.url }}" alt="" />
+                                    {{ link.title }} - {{ link.url }}
+                                </h4>
+                            </a>
+                            {% if link.description != "" %}
+                                <p>{{ link.description | nl2br }}</p>
+                            {% endif %}
+                        </div>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="admin">
                                 <button type="submit" data-toggle="modal" data-target="#delete-link-{{ link.id }}" class="btn btn-default btn-xs">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
-                            </p>
 
-                            <div class="modal fade" id="delete-link-{{ link.id }}" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Borrar enllaç</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Estàs segur que vols borrar l'enllaç <strong>{{ link.title }}</strong>?</p>
-                                            <p><em>Aquesta acció no es pot desfer.</em></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form method="post" action="{{ path('delete_link', {'id': link.id}) }}" class="form-inline">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
-                                                <button type="submit" class="btn btn-danger">Borrar</button>
-                                            </form>
+                                <div class="modal fade" id="delete-link-{{ link.id }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Borrar enllaç</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Estàs segur que vols borrar l'enllaç <strong>{{ link.title }}</strong>?</p>
+                                                <p><em>Aquesta acció no es pot desfer.</em></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="post" action="{{ path('delete_link', {'id': link.id}) }}" class="form-inline">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
+                                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
-
-                        <a href="//{{ link.url }}" target="_blank">
-                            <h4>
-                                <img src="https://s2.googleusercontent.com/s2/favicons?domain_url={{ link.url }}" alt="" />
-                                {{ link.title }} - {{ link.url }}
-                            </h4>
-                        </a>
-                        {% if link.description != "" %}
-                        <p>{{ link.description | nl2br }}</p>
                         {% endif %}
                     </div>
                 </div>
