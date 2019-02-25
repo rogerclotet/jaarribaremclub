@@ -6,7 +6,7 @@ services:
     App\Service\FileHandler:
         class: App\Service\FileSystemFileHandler
         arguments:
-            - '%env(UPLOADS_DIR)%'
+            $uploadsDir: '%env(UPLOADS_DIR)%'
 
     jac.imagine.data.loader:
         class: Liip\ImagineBundle\Binary\Loader\StreamLoader

@@ -42,9 +42,6 @@ services:
             $debug: '%env(APP_DEBUG)%'
             $menu: '%menu%'
 
-    App\Service\FileHandler:
-        class: App\Service\NoopFileHandler
-
     KeenIO\Client\KeenIOClient:
         factory: ['App\Service\KeenIOFactory', get]
         arguments:

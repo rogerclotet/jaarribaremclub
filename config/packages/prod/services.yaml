@@ -6,8 +6,8 @@ services:
     App\Service\FileHandler:
         class: App\Service\S3FileHandler
         arguments:
-            - '@jac.aws.s3'
-            - '%env(S3_BUCKET_NAME)%'
+            $s3: '@jac.aws.s3'
+            $bucketName: '%env(S3_BUCKET_NAME)%'
 
     jac.aws.s3:
         class: Aws\S3\S3Client
