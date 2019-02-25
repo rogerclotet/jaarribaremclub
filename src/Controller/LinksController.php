@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/enllaços")
+ * @Route("/links")
  */
 class LinksController extends AbstractController
 {
