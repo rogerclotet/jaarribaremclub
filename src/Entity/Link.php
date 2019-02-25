@@ -34,7 +34,7 @@ class Link
     /**
      * @ORM\Column(type="integer")
      */
-    private $priority;
+    private $priority = 0;
 
     public function getId(): ?int
     {
