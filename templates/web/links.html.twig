@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% import 'web/forms.html.twig' as forms %}
+
+{% set section_title = 'Enllaços d\'interès' %}
+
+{% block body %}
+    {% if add_form is defined %}
+        {{ forms.admin('Afegir enllaç', add_form) }}
+    {% endif %}
+
+    {% if links | length > 0 %}
+        <div class="links">
+            {% for link in links %}
+                <div class="link">
+                    <div class="link-container">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <p class="text-right">
+                                <button type="submit" data-toggle="modal" data-target="#delete-link-{{ link.id }}" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </p>
+
+                            <div class="modal fade" id="delete-link-{{ link.id }}" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Borrar enllaç</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Estàs segur que vols borrar l'enllaç <strong>{{ link.title }}</strong>?</p>
+                                            <p><em>Aquesta acció no es pot desfer.</em></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form method="post" action="{{ path('delete_link', {'id': link.id}) }}" class="form-inline">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
+                                                <button type="submit" class="btn btn-danger">Borrar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <a href="//{{ link.url }}" target="_blank">
+                            <h4>
+                                <img src="https://s2.googleusercontent.com/s2/favicons?domain_url={{ link.url }}" alt="" />
+                                {{ link.title }} - {{ link.url }}
+                            </h4>
+                        </a>
+                        {% if link.description != "" %}
+                        <p>{{ link.description | nl2br }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            <em>
+                Ara mateix no hi ha cap enllaç.
+            </em>
+        </p>
+    {% endif %}
+{% endblock %}

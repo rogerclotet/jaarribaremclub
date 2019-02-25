@@ -6,6 +6,7 @@ services:
     volumes:
       - ./:/code:cached
       - ./var/log/symfony:/var/www/symfony/var/logs:cached
+    working_dir: /code
 
   nginx:
     build: docker/nginx
