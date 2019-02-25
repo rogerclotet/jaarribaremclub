@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/links")
+ * @Route("/enllaços")
  */
 class LinksController extends AbstractController
 {
@@ -36,10 +36,6 @@ class LinksController extends AbstractController
         $user = $this->security->getUser();
         if (null !== $user && in_array('ROLE_ADMIN', $user->getRoles())) {
             $form = $this->createForm(LinkType::class, null, ['action' => $this->generateUrl('add_link')]);
-            if ($form->isSubmitted() && $form->isValid()) {
-                // Handle submission
-            }
-
             $parameters['add_form'] = $form->createView();
         }
 
