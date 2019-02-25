@@ -35,7 +35,7 @@ class LinksController extends AbstractController
 
         $user = $this->security->getUser();
         if (null !== $user && in_array('ROLE_ADMIN', $user->getRoles())) {
-            $form = $this->createForm(LinkType::class, null, ['action' => $this->generateUrl('add_link')]);
+            $form                   = $this->createForm(LinkType::class, null, ['action' => $this->generateUrl('add_link')]);
             $parameters['add_form'] = $form->createView();
         }
 
