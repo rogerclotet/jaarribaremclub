@@ -20,6 +20,9 @@ class Caminades extends PureComponent {
             .then((response) => response.json())
             .then((caminades) => {
                 this.fuse = new Fuse(caminades, {
+                    shouldSort: true,
+                    threshold: 0.4,
+                    minMatchCharLength: 3,
                     keys: ['path']
                 });
                 this.setState({
