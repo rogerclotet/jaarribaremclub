@@ -5,48 +5,48 @@
 {% set section_title = 'Edicions Anteriors' %}
 
 {% block body %}
+    <div id="history"></div>
+
     {% if is_granted('ROLE_ADMIN') %}
         {{ forms.admin('Afegir caminada', form) }}
-    {% endif %}
 
-    {% for caminada in caminades %}
-        {% if loop.index % 3 == 1 %}
-            <div class="row">
-        {% endif %}
+        {% for caminada in caminades|reverse %}
+            {% if loop.index % 3 == 1 %}
+                <div class="row">
+            {% endif %}
 
-        <div class="caminada col-md-4">
-            {% if is_granted('ROLE_ADMIN') %}
+            <div class="caminada col-md-4">
                 <p class="text-right">
-                    <button type="submit" data-toggle="modal" data-target="#delete-caminada-{{ caminada.number }}" class="btn btn-default btn-xs">
+                    <button type="submit" data-toggle="modal" data-target="#delete-caminada-{{ caminada.number }}"
+                            class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </p>
+
+                <a href="{{ path('caminada', {'number': caminada.number}) }}">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                {{ caminada.number }}a Caminada ({{ caminada.year }})
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ caminada.path|join(' - ') }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {% if loop.index % 3 == 0 or (loop.last and loop.length % 3 != 0) %}
+                </div>
             {% endif %}
 
-            <a href="{{ path('caminada', {'number': caminada.number}) }}">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            {{ caminada.number }}a Caminada ({{ caminada.year }})
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        {{ caminada.path|join(' - ') }}
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        {% if loop.index % 3 == 0 or (loop.last and loop.length % 3 != 0) %}
-            </div>
-        {% endif %}
-
-        {% if is_granted('ROLE_ADMIN') %}
             <div class="modal fade" id="delete-caminada-{{ caminada.number }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">Borrar caminada</h4>
                         </div>
                         <div class="modal-body">
@@ -54,7 +54,8 @@
                             <p><em>Aquesta acció no es pot desfer.</em></p>
                         </div>
                         <div class="modal-footer">
-                            <form method="post" action="{{ path('delete_caminada', {'number': caminada.number}) }}" class="form-inline">
+                            <form method="post" action="{{ path('delete_caminada', {'number': caminada.number}) }}"
+                                  class="form-inline">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
@@ -62,6 +63,13 @@
                     </div>
                 </div>
             </div>
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if not is_granted('ROLE_ADMIN') %}
+        {{ encore_entry_script_tags('history') }}
+    {% endif %}
 {% endblock %}

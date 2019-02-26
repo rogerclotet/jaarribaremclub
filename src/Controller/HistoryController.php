@@ -28,21 +28,18 @@ class HistoryController extends AbstractController
      */
     public function historyAction()
     {
-        $caminades = $this
-            ->getDoctrine()
-            ->getRepository(Caminada::class)
-            ->createQueryBuilder('c')
-            ->orderBy('c.year', 'asc')
-            ->getQuery()
-            ->getResult();
-
-        $parameters = [
-            'caminades' => $caminades,
-        ];
+        $parameters = [];
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            $form               = $this->createForm(CaminadaType::class);
-            $parameters['form'] = $form->createView();
+            $parameters['caminades'] = $this
+                ->getDoctrine()
+                ->getRepository(Caminada::class)
+                ->createQueryBuilder('c')
+                ->orderBy('c.year', 'asc')
+                ->getQuery()
+                ->getResult();
+
+            $parameters['form'] = $this->createForm(CaminadaType::class)->createView();
         }
 
         return $this->render('web/history.html.twig', $parameters);

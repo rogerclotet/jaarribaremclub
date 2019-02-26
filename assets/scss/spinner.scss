@@ -1,0 +1,24 @@
+@import 'main';
+
+.spinner {
+  margin: 50px auto 0;
+  text-align: center;
+  font-size: 16px;
+
+  > span {
+    font-size: 50px;
+    color: $primaryColor;
+    animation: spin 2s infinite linear;
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}

@@ -19,6 +19,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('album', './assets/js/album.js')
+    .addEntry('history', './assets/js/history.jsx')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -47,8 +48,9 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
+    .enableReactPreset()
+
     // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
 ;
 
