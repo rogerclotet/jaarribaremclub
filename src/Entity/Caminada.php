@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="caminada")
  * @ORM\Entity(repositoryClass="App\Repository\CaminadaRepository")
  */
-class Caminada
+class Caminada implements \JsonSerializable
 {
     /**
      * @var int
@@ -340,5 +340,10 @@ class Caminada
     public function getYear()
     {
         return $this->year;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

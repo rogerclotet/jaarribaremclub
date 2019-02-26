@@ -1,6 +1,36 @@
 @import 'main';
 
 .section-history {
+  .search {
+    padding-bottom: 15px;
+    text-align: right;
+  }
+
+  .caminades {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: -15px;
+
+    .caminada {
+      flex: 1 0 0;
+      min-width: 250px;
+      padding-right: 15px;
+
+      .panel {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  ul.caminada-files > li {
+    color: $primaryColor;
+
+    .text {
+      color: $textColor;
+    }
+  }
+
   .caminada {
     a {
       font-weight: normal !important;
@@ -13,17 +43,5 @@
         }
       }
     }
-  }
-
-  .panel-title {
-    color: $textColor;
-  }
-}
-
-ul.caminada-files > li {
-  color: $primaryColor;
-
-  .text {
-    color: $textColor;
   }
 }
