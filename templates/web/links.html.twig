@@ -29,7 +29,11 @@
                             <a href="{{ link.url starts with 'http://' or link.url starts with 'https://' ? link.url : '//'~link.url }}" target="_blank">
                                 <h4>
                                     <img src="https://s2.googleusercontent.com/s2/favicons?domain_url={{ link.url }}" alt="" />
-                                    {{ link.title }} - {{ link.url }}
+                                    {{ link.title }}
+                                    <span class="url">
+                                        <span class="glyphicon glyphicon-link"></span>
+                                        {{ link.url|replace({'http://': '', 'https://': ''}) }}
+                                    </span>
                                 </h4>
                             </a>
                             {% if link.description != "" %}

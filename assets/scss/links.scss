@@ -8,6 +8,16 @@
 
       .contents {
         flex-grow: 1;
+
+        .url {
+          font-style: italic;
+          color: gray;
+          margin-left: 10px;
+
+          .glyphicon {
+            font-size: 12px;
+          }
+        }
       }
 
       .order-arrows {
