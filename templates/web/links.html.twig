@@ -32,7 +32,7 @@
                                     {{ link.title }}
                                     <span class="url">
                                         <span class="glyphicon glyphicon-link"></span>
-                                        {{ link.url|replace({'http://': '', 'https://': ''}) }}
+                                        {{ link.url|replace({'http://': '', 'https://': ''})|split('/')|first|split('?')|first }}
                                     </span>
                                 </h4>
                             </a>
