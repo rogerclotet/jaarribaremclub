@@ -34,16 +34,16 @@ staging:
     only:
         - master
 
-production:
-    stage: deploy
-    image: ruby:2.4
-    dependencies:
-        - assets
-    script:
-        - gem install dpl
-        - dpl --provider=heroku --skip_cleanup --app=jaarribaremclub --api-key=$HEROKU_API_KEY
-    only:
-        - tags
+#production:
+#    stage: deploy
+#    image: ruby:2.4
+#    dependencies:
+#        - assets
+#    script:
+#        - gem install dpl
+#        - dpl --provider=heroku --skip_cleanup --app=jaarribaremclub --api-key=$HEROKU_API_KEY
+#    only:
+#        - tags
 
 stages:
     - check
