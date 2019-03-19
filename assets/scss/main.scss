@@ -28,12 +28,12 @@ a {
 
 .header-container {
   @include container();
-  background: url("../../public/images/header/1.png") $primaryColor no-repeat;
+  background: url("../../public/images/header/1.png") $primaryColor no-repeat bottom;
   height: 117px;
   position: relative;
   overflow: hidden;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
 
   @media (min-width: 768px) {
     &:before {
@@ -57,6 +57,42 @@ a {
   a {
     font-weight: normal !important;
     color: white !important;
+  }
+}
+
+.scroll {
+  .header-container {
+    @media (min-width: 768px) {
+      &:before {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+#header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 100;
+  background-color: white;
+  overflow: hidden;
+
+  &.scroll {
+    position: fixed;
+    margin-bottom: 5px;
+
+    .header-container {
+      height: 46px;
+      padding: 4px 9px;
+    }
+
+    .img-responsive {
+      height: 100%;
+    }
+
+
   }
 }
 
@@ -142,6 +178,7 @@ a {
 .main-container {
   @include container();
   padding: 0 5px 5px 5px;
+  margin-top: 164px;
   background-color: $primaryColor;
 
   @media (min-width: 768px) {
@@ -149,6 +186,7 @@ a {
   }
 
   @media (max-width: 768px) {
+    margin-top: 190px;
     padding-top: 5px;
   }
 

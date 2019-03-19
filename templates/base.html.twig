@@ -21,48 +21,50 @@
         <meta name="theme-color" content="#ffffff">
     </head>
     <body>
-    <div class="header-container">
-        <a href="{{ path("blog") }}">
-            <img src="{{ asset('/images/header.png') }}" class="img-responsive" alt="Caminada Popular Vall de Lord"/>
-        </a>
-        <a href="{{ path("about") }}" class="hidden-xs">
-            <span class="subtitle">A.E. Ja Arribarem Club</span>
-        </a>
+    <div id="header">
+        <div class="header-container">
+            <a href="{{ path("blog") }}">
+                <img src="{{ asset('/images/header.png') }}" class="img-responsive" alt="Caminada Popular Vall de Lord"/>
+            </a>
+            <a href="{{ path("about") }}" class="hidden-xs">
+                <span class="subtitle">A.E. Ja Arribarem Club</span>
+            </a>
+        </div>
+
+        <nav class="navbar nav-container">
+            <div class="navbar-header visible-xs">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"
+                        aria-expanded="false">
+                    <span class="sr-only">Menú</span>
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <span class="navbar-brand">{{ section_title }}</span>
+            </div>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav">
+                    {% spaceless %}
+                        {% for route, title in menu %}
+                            <li>
+                                <a href="{{ path(route) }}"
+                                   {% if app.request.attributes.get('_route') == route %}class="current"{% endif %}>
+                                    {{ title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endspaceless %}
+                </ul>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <span class="logged-in hidden-xs">
+                    Administrador
+                    <a href="{{ logout_url() }}">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                    </a>
+                </span>
+                {% endif %}
+            </div>
+        </nav>
     </div>
-
-    <nav class="navbar nav-container">
-        <div class="navbar-header visible-xs">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"
-                    aria-expanded="false">
-                <span class="sr-only">Menú</span>
-                <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </button>
-            <span class="navbar-brand">{{ section_title }}</span>
-        </div>
-
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="nav navbar-nav">
-                {% spaceless %}
-                    {% for route, title in menu %}
-                        <li>
-                            <a href="{{ path(route) }}"
-                               {% if app.request.attributes.get('_route') == route %}class="current"{% endif %}>
-                                {{ title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                {% endspaceless %}
-            </ul>
-            {% if is_granted('ROLE_ADMIN') %}
-                <span class="logged-in hidden-xs">
-                Administrador
-                <a href="{{ logout_url() }}">
-                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                </a>
-            </span>
-            {% endif %}
-        </div>
-    </nav>
 
     <div class="main-container">
         <h1 class="hidden-xs">{{ section_title }}</h1>
@@ -137,6 +139,7 @@
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('scroll') }}
     {% endblock %}
     </body>
 </html>
