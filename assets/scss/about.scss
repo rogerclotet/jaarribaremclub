@@ -1,0 +1,10 @@
+.about {
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
