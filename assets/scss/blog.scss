@@ -1,9 +1,11 @@
 @import 'main';
 
 .section-blog {
-  .well {
-    padding: 30px;
+  > * {
+    margin-bottom: 1rem;
+  }
 
+  .next-caminada {
     h4 {
       font-size: 20px;
       margin-top: 0;

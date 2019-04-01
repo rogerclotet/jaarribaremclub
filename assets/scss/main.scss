@@ -2,6 +2,11 @@ $primaryColor: #669933;
 $secondaryColor: #99cc66;
 $textColor: #333333;
 
+// Bootstrap primary color
+$primary: $primaryColor;
+
+@import "~bootstrap/scss/bootstrap";
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -96,12 +101,10 @@ a {
   }
 }
 
-.navbar-nav > li > a {
-  padding-top:5px !important; padding-bottom:5px !important;
-}
-
 .navbar {
   min-height:24px !important;
+  padding: 0 !important;
+  overflow: hidden;
 }
 
 .navbar-collapse {
@@ -120,7 +123,7 @@ a {
   color: white;
 }
 
-.nav-container {
+.navbar-container {
   @include container();
   background-color: $secondaryColor;
 
@@ -128,31 +131,29 @@ a {
     background-color: $primaryColor;
   }
 
-  li {
-    a {
-      color: $textColor;
+  .nav-item {
+    color: $textColor;
+
+    &:visited, &:active {
+      background-color: $secondaryColor;
+    }
+
+    &:hover, &.active {
+      color: white;
+      background-color: $primaryColor;
+    }
+
+    @media (max-width: 768px) {
+      margin-left: 10px;
+      color: white !important;
 
       &:visited, &:active {
-        background-color: $secondaryColor;
-      }
-
-      &:hover, &.current {
-        color: white;
         background-color: $primaryColor;
       }
 
-      @media (max-width: 768px) {
-        margin-left: 10px;
-        color: white !important;
-
-        &:visited, &:active {
-          background-color: $primaryColor;
-        }
-
-        &:hover, &.current {
-          color: $textColor !important;
-          background-color: $secondaryColor;
-        }
+      &:hover, &.active {
+        color: $textColor !important;
+        background-color: $secondaryColor;
       }
     }
 
@@ -161,6 +162,11 @@ a {
         padding-left: 15px;
         border-radius: 10px 0 0 10px;
       }
+    }
+
+    .nav-link {
+      font-size: 14px;
+      color: inherit;
     }
   }
 
@@ -173,6 +179,13 @@ a {
       color: #a94442;
     }
   }
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-top: 5px !important;
+  padding-bottom: 6px !important;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .main-container {
