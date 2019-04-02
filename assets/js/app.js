@@ -6,6 +6,7 @@ import '../scss/album.scss';
 import '../scss/links.scss';
 import '../scss/spinner.scss';
 import '../scss/admin.scss';
+import '../scss/forms.scss';
 
 const $ = require('jquery');
 

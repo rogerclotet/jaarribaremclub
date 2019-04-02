@@ -6,6 +6,7 @@ $textColor: #333333;
 $primary: $primaryColor;
 
 @import "~bootstrap/scss/bootstrap";
+@import "~open-iconic/font/css/open-iconic-bootstrap";
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -96,9 +97,11 @@ a {
     .img-responsive {
       height: 100%;
     }
-
-
   }
+}
+
+.img-responsive {
+  max-width: 100%;
 }
 
 .navbar {
@@ -109,12 +112,6 @@ a {
 
 .navbar-collapse {
   padding-left: 0;
-}
-
-.navbar-header {
-  .glyphicon {
-    color: white;
-  }
 }
 
 .navbar-brand {
