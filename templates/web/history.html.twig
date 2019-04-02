@@ -16,21 +16,21 @@
             {% endif %}
 
             <div class="caminada col-md-4">
-                <p class="text-right">
+                <div class="text-right">
                     <button type="submit" data-toggle="modal" data-target="#delete-caminada-{{ caminada.number }}"
-                            class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            class="btn text-danger btn-xs">
+                        <span class="oi oi-trash" aria-hidden="true"></span>
                     </button>
-                </p>
+                </div>
 
                 <a href="{{ path('caminada', {'number': caminada.number}) }}">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">
                                 {{ caminada.number }}a Caminada ({{ caminada.year }})
-                            </h3>
+                            </strong>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             {{ caminada.path|join(' - ') }}
                         </div>
                     </div>

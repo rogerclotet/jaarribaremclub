@@ -16,25 +16,25 @@
                     <div class="link-container">
                         {% if is_granted('ROLE_ADMIN') %}
                         <form action="{{ path('change_link_priority', {'id': link.id}) }}" method="post" class="admin order-arrows">
-                            <button type="submit" name="up" value="true" class="btn btn-default btn-xs"{% if key == 0 %} disabled{% endif %}>
-                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                            <button type="submit" name="up" value="true" class="btn btn-xs"{% if key == 0 %} disabled{% endif %}>
+                                <span class="oi oi-arrow-thick-top"></span>
                             </button>
-                            <button type="submit" name="down" value="true" class="btn btn-default btn-xs"{% if key == links|length - 1 %} disabled{% endif %}>
-                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                            <button type="submit" name="down" value="true" class="btn btn-xs"{% if key == links|length - 1 %} disabled{% endif %}>
+                                <span class="oi oi-arrow-thick-bottom"></span>
                             </button>
                         </form>
                         {% endif %}
 
                         <div class="contents">
                             <a href="{{ link.url starts with 'http://' or link.url starts with 'https://' ? link.url : '//'~link.url }}" target="_blank">
-                                <h4>
+                                <h5>
                                     <img src="https://s2.googleusercontent.com/s2/favicons?domain_url={{ link.url }}" alt="" />
                                     {{ link.title }}
                                     <span class="url">
-                                        <span class="glyphicon glyphicon-link"></span>
+                                        <span class="oi oi-external-link"></span>
                                         {{ link.url|replace({'http://': '', 'https://': ''})|split('/')|first|split('?')|first }}
                                     </span>
-                                </h4>
+                                </h5>
                             </a>
                             {% if link.description != "" %}
                                 <p>{{ link.description | nl2br }}</p>
@@ -43,8 +43,8 @@
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="admin">
-                                <button type="submit" data-toggle="modal" data-target="#delete-link-{{ link.id }}" class="btn btn-default btn-xs">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                <button type="submit" data-toggle="modal" data-target="#delete-link-{{ link.id }}" class="btn text-danger btn-xs">
+                                    <span class="oi oi-trash" aria-hidden="true"></span>
                                 </button>
 
                                 <div class="modal fade" id="delete-link-{{ link.id }}" tabindex="-1" role="dialog">

@@ -36,11 +36,12 @@
         <div class="col-md-6">
             <ul class="list-group">
                 {% for album in albums %}
-                    <li class="list-group-item">
-                        <a href="{{ path('album', {'number': album.caminada.number}) }}">
-                            {{ album.caminada.number }}a Caminada ({{ album.caminada.year }})
-                        </a>
-                    </li>
+                    <a
+                        href="{{ path('album', {'number': album.caminada.number}) }}"
+                        class="list-group-item list-group-item-action"
+                    >
+                        {{ album.caminada.number }}a Caminada ({{ album.caminada.year }})
+                    </a>
                 {% endfor %}
             </ul>
         </div>
