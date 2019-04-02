@@ -47,7 +47,7 @@ class Caminades extends PureComponent {
     render() {
         if (this.state.caminades === null) {
             return <div className="spinner">
-                <span className="glyphicon glyphicon-refresh"/>
+                <span className="oi oi-loop-circular"/>
                 <p>Carregant...</p>
             </div>;
         }
@@ -71,13 +71,13 @@ class Caminades extends PureComponent {
                     {this.state.search.results.map((caminada) => (
                         <div key={caminada.id} className="caminada">
                             <a href={"/caminades/" + caminada.number}>
-                                <div className="panel panel-success">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <strong className="card-title">
                                             {caminada.number}a Caminada ({caminada.year})
-                                        </h3>
+                                        </strong>
                                     </div>
-                                    <div className="panel-body">
+                                    <div className="card-body">
                                         {caminada.path.join(' - ')}
                                     </div>
                                 </div>

@@ -3,7 +3,8 @@
 .section-history {
   .search {
     padding-bottom: 15px;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .caminades {
@@ -17,7 +18,7 @@
       min-width: 250px;
       padding-right: 15px;
 
-      .panel {
+      .card {
         margin-bottom: 15px;
       }
     }
@@ -38,7 +39,7 @@
       &:hover {
         color: $textColor;
 
-        .panel-title {
+        .card-title {
           color: $primaryColor;
         }
       }

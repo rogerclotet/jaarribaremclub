@@ -5,37 +5,39 @@
 {% endif %}
 
 {% if next is not null %}
-    <div class="well">
-        <div class="row">
-            <h4 class="col-md-6">
-                {{ next.number }}a Caminada
-            </h4>
-            {% set hours = (date(next.datetime).timestamp - date().timestamp - 7200) / 3600 %}
-            {% if hours >= 1 %}
-                <h4 class="col-md-6 text-right countdown">
-                    Falten
-                    {% set days = (hours / 24) | round(0, 'floor') %}
-                    {% if days > 0 %}
-                        {{ days }} dies i
-                    {% endif %}
-                    {{ hours % 24 }} hores!
+    <div class="next-caminada card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="col-md-6">
+                    {{ next.number }}a Caminada
                 </h4>
-            {% endif %}
-        </div>
+                {% set hours = (date(next.datetime).timestamp - date().timestamp - 7200) / 3600 %}
+                {% if hours >= 1 %}
+                    <h4 class="col-md-6 text-right countdown">
+                        Falten
+                        {% set days = (hours / 24) | round(0, 'floor') %}
+                        {% if days > 0 %}
+                            {{ days }} dies i
+                        {% endif %}
+                        {{ hours % 24 }} hores!
+                    </h4>
+                {% endif %}
+            </div>
 
-        <ul class="list-unstyled">
-            <li>
-                <strong>Data:</strong>
-                {{ next.datetime|date('d/m/Y') }}
-            </li>
-            <li>
-                <strong>Hora:</strong>
-                {{ next.datetime|date('H:i') }}
-            </li>
-            <li>
-                <strong>Lloc:</strong>
-                {{ next.place }}
-            </li>
-        </ul>
+            <ul class="list-unstyled">
+                <li>
+                    <strong>Data:</strong>
+                    {{ next.datetime|date('d/m/Y') }}
+                </li>
+                <li>
+                    <strong>Hora:</strong>
+                    {{ next.datetime|date('H:i') }}
+                </li>
+                <li>
+                    <strong>Lloc:</strong>
+                    {{ next.place }}
+                </li>
+            </ul>
+        </div>
     </div>
 {% endif %}
