@@ -11,8 +11,8 @@
     {% endif %}
 
     {% if caminada.image != '' %}
-        <p>
-            <img src="{{ static_url ~ caminada.image.path }}" class="img-responsive mx-auto">
+        <p class="text-center">
+            <img src="{{ static_url ~ caminada.image.path }}" class="img-responsive">
         </p>
     {% endif %}
 
@@ -50,14 +50,14 @@
     {% endif %}
 
     {% if caminada.map != '' %}
-        <p>
-            <img src="{{ static_url ~ caminada.map.path }}" class="img-responsive mx-auto">
+        <p class="text-center">
+            <img src="{{ static_url ~ caminada.map.path }}" class="img-responsive">
         </p>
     {% endif %}
 
     {% if caminada.elevation != '' %}
-        <p>
-            <img src="{{ static_url ~ caminada.elevation.path }}" class="img-responsive mx-auto">
+        <p class="text-center">
+            <img src="{{ static_url ~ caminada.elevation.path }}" class="img-responsive">
         </p>
     {% endif %}
 

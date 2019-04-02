@@ -26,19 +26,19 @@
         <a href="{{ path("blog") }}">
             <img src="{{ asset('/images/header.png') }}" class="img-responsive" alt="Caminada Popular Vall de Lord"/>
         </a>
-        <a href="{{ path("about") }}" class="hidden-xs">
+        <a href="{{ path("about") }}" class="d-none d-md-block">
             <span class="subtitle">A.E. Ja Arribarem Club</span>
         </a>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-container">
-        <div class="navbar-header visible-xs">
+        <div class="navbar-header d-lg-none">
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#menu"
                     aria-expanded="false" aria-label="Navegació">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon oi oi-menu"></span>
             </button>
 
-            {# TODO <span class="navbar-brand">{{ section_title }}</span> #}
+            <div class="navbar-brand">{{ section_title }}</div>
         </div>
 
         <div class="collapse navbar-collapse" id="menu">
@@ -54,7 +54,7 @@
                 {% endspaceless %}
             </ul>
             {% if is_granted('ROLE_ADMIN') %}
-                <span class="logged-in hidden-xs">
+                <span class="logged-in d-none d-lg-block">
                     <a href="{{ logout_url() }}">
                         <span class="oi oi-account-logout" aria-hidden="true"></span>
                     </a>
@@ -65,7 +65,7 @@
 </div>
 
 <div class="main-container">
-    <h1 class="hidden-xs">{{ section_title }}</h1>
+    <h1 class="d-none d-lg-block">{{ section_title }}</h1>
     <div class="inner-container section-{{ app.request.attributes.get('_route') }}">
         {% block body %}{% endblock %}
     </div>
@@ -107,7 +107,7 @@
                 title="Protecció Civil del Berguedà"
         />
     </div>
-    <span class="hidden-xs">Col·laboradors</span>
+    <span class="d-none d-lg-block">Col·laboradors</span>
 </div>
 <div class="credits">
     Disseny: Ariadna Audivert · Programació: <span id="email">Roger Clotet</span>
