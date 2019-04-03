@@ -15,7 +15,9 @@
             </div>
         {% endfor %}
 
-        {% set extra_slots = (album.photos | length) % 6 %}
+        {% set count = album.photos | length %}
+        {% set extra_slots = 6 - (count % 6) %}
+
         {% for i in 1..extra_slots %}
             <div class="image-container"></div>
         {% endfor %}
