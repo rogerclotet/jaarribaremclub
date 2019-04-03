@@ -14,21 +14,14 @@
                 <img src="{{ photo.path | imagine_filter('thumb_album') }}">
             </div>
         {% endfor %}
+    </div>
 
-        {% set count = album.photos | length %}
-        {% set extra_slots = 6 - (count % 6) %}
-
-        {% for i in 1..extra_slots %}
-            <div class="image-container"></div>
-        {% endfor %}
-
-        <div class="back-button">
-            <a href="{{ path('gallery') }}">
-                <button class="btn btn-light">
-                    <span class="oi oi-arrow-left"></span> Tornar
-                </button>
-            </a>
-        </div>
+    <div class="back-button">
+        <a href="{{ path('gallery') }}">
+            <button class="btn btn-light">
+                <span class="oi oi-arrow-left"></span> Tornar
+            </button>
+        </a>
     </div>
 
     <div id="album" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

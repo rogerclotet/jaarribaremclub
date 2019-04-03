@@ -1,7 +1,7 @@
 .gallery-album {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 
   .image-container {
     width: 157px;
@@ -16,10 +16,11 @@
   .clickable:hover {
     cursor: pointer;
   }
+}
 
-  .back-button {
-    padding-top: 1rem;
-  }
+.back-button {
+  padding-top: 1rem;
+  text-align: center;
 }
 
 .carousel-control.left, .carousel-control.right {
