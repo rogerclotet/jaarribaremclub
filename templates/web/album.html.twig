@@ -10,20 +10,23 @@
 {% block body %}
     <div class="gallery-album">
         {% for key, photo in album.photos %}
-            {% if loop.index % 6 == 1 %}
-                <div class="row">
-            {% endif %}
-
-            <div class="col-md-2">
-                <div data-key="{{ key }}" class="image-container thumbnail">
-                    <img src="{{ photo.path | imagine_filter('thumb_album') }}">
-                </div>
+            <div data-key="{{ key }}" class="image-container clickable thumbnail">
+                <img src="{{ photo.path | imagine_filter('thumb_album') }}">
             </div>
-
-            {% if loop.index % 6 == 0 or (loop.last and loop.length % 6 != 0) %}
-                </div>
-            {% endif %}
         {% endfor %}
+
+        {% set extra_slots = album.photos | length % 6 + 1 %}
+        {% for i in 0..extra_slots %}
+            <div class="image-container"></div>
+        {% endfor %}
+
+        <div class="back-button">
+            <a href="{{ path('gallery') }}">
+                <button class="btn btn-light">
+                    <span class="oi oi-arrow-left"></span> Tornar
+                </button>
+            </a>
+        </div>
     </div>
 
     <div id="album" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -33,33 +36,25 @@
                     <div id="album-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
                         <div class="carousel-inner" role="listbox">
                             {% for key, photo in album.photos %}
-                                <div id="photo-{{ key }}" class="item{% if loop.first %} active{% endif %}">
-                                    <img src="{{ static_url ~ photo.path }}">
+                                <div id="photo-{{ key }}" class="carousel-item{% if loop.first %} active{% endif %}">
+                                    <img src="{{ static_url ~ photo.path }}" class="d-block w-100">
                                 </div>
                             {% endfor %}
                         </div>
 
-                        <a class="left carousel-control" href="#album-carousel" role="button" data-slide="prev">
-                            <span class="oi oi-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#album-carousel" role="button" data-slide="next">
-                            <span class="oi oi-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        {# TODO fix carousel controls
+                        <div class="carousel-control-prev" href="#album-carousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </div>
+                        <div class="carousel-control-next" href="#album-carousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Següent</span>
+                        </div>
+                        #}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <a href="{{ path('gallery') }}">
-                <button class="btn btn-outline-secondary">
-                    <span class="oi oi-arrow-left"></span> Tornar
-                </button>
-            </a>
         </div>
     </div>
 {% endblock %}

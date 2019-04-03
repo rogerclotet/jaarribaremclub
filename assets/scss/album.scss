@@ -1,8 +1,24 @@
 .gallery-album {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
   .image-container {
-    &:hover {
-      cursor: pointer;
+    width: 157px;
+    height: 157px;
+    padding: 1rem;
+
+    > img {
+      border-radius: 5px;
     }
+  }
+
+  .clickable:hover {
+    cursor: pointer;
+  }
+
+  .back-button {
+    padding-top: 1rem;
   }
 }
 
