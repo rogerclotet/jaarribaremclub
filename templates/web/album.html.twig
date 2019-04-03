@@ -15,8 +15,8 @@
             </div>
         {% endfor %}
 
-        {% set extra_slots = album.photos | length % 6 + 1 %}
-        {% for i in 0..extra_slots %}
+        {% set extra_slots = (album.photos | length) % 6 %}
+        {% for i in 1..extra_slots %}
             <div class="image-container"></div>
         {% endfor %}
 
@@ -33,16 +33,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div id="album-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div id="album-carousel" class="carousel" data-interval="false">
                         <div class="carousel-inner" role="listbox">
                             {% for key, photo in album.photos %}
-                                <div id="photo-{{ key }}" class="carousel-item{% if loop.first %} active{% endif %}">
+                                <div id="photo-{{ key }}" class="carousel-item">
                                     <img src="{{ static_url ~ photo.path }}" class="d-block w-100">
                                 </div>
                             {% endfor %}
                         </div>
 
-                        {# TODO fix carousel controls
                         <div class="carousel-control-prev" href="#album-carousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Anterior</span>
@@ -51,7 +50,6 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Següent</span>
                         </div>
-                        #}
                     </div>
                 </div>
             </div>

@@ -1,15 +1,26 @@
 const $ = jQuery;
 
 $(function () {
+    const carousel = $('#album-carousel');
+
+    $(document).bind('keyup', function(e) {
+        if(e.which === 39){
+            carousel.carousel('next');
+        }
+        else if(e.which === 37){
+            carousel.carousel('prev');
+        }
+    });
+
     $('.thumbnail').click(function () {
         const key = $(this).data('key');
 
-        const carousel = $('#album-carousel');
-
-        carousel.find('.item').removeClass('active');
+        carousel.find('.carousel-item').removeClass('active');
         $('#photo-' + key).addClass('active');
 
         $('#album').modal();
-        carousel.carousel();
+        carousel.carousel({
+            keyboard: true,
+        });
     });
 });
