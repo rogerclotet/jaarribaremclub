@@ -12,108 +12,15 @@
         {{ forms.admin('Afegir notícia', form_create) }}
     {% endif %}
 
-    {% for post in posts %}
-        <article>
-            <div class="article-container">
-                <header class="row">
-                    <h1 class="col-md-8">
-                        {{ post.title }}
+    <div class="initial-posts">
+        {{ include('web/articles.html.twig', {'posts': posts}) }}
+    </div>
 
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <button type="submit" data-toggle="modal" data-target="#delete-post-{{ post.id }}"
-                                    class="btn text-danger btn-xs">
-                                <span class="oi oi-trash" aria-hidden="true"></span>
-                            </button>
-                        {% endif %}
-                    </h1>
+    <input type="hidden" id="num-posts" value="{{ count }}" />
+    <div id="blog"></div>
+{% endblock %}
 
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <div class="modal fade" id="delete-post-{{ post.id }}" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Borrar notícia</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Estàs segur que vols borrar la notícia <strong>{{ post.title }}</strong>?</p>
-                                    <p><em>Aquesta acció no es pot desfer.</em></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form method="post" action="{{ path('delete_post', {'id': post.id}) }}" class="form-inline">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel·lar</button>
-                                        <button type="submit" class="btn btn-danger">Borrar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <h2 class="created-at col-md-4">{{ post.createdAt|date('d/m/Y') }}</h2>
-                </header>
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <p>
-                            {{ post.text|nl2br }}
-                        </p>
-
-                        {% if post.files|length > 0 %}
-                            <span>Fitxers:</span>
-                            <ul>
-                                {% for file in post.files %}
-                                    <li>
-                                        <span class="text">
-                                            <a href="{{ static_url ~ file.path }}" target="_blank">
-                                                {{ file.name }}
-                                            </a>
-                                            ({{ utils.bytesToSize(file.size) }})
-                                        </span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div>
-
-                    {% if post.image != '' %}
-                        <div class="image-container col-md-4" data-toggle="modal" data-target="#image-{{ post.id }}">
-                            <img src="{{ post.image.path | imagine_filter('thumb_post') }}" alt="{{ post.title }}">
-                        </div>
-
-                        <div id="image-{{ post.id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <img src="{{ static_url ~ post.image.path }}" class="img-responsive">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </article>
-    {% endfor %}
-
-    {% if pagination.page_count > 1 %}
-        <div class="pagination-row row">
-            <div class="col-md-6">
-            {% if pagination.page > 1 %}
-                <a href="{{ path('blog', {'p': pagination.page - 1}) }}">
-                    <span class="oi oi-arrow-left" aria-hidden="true"></span>
-                    Entrades següents
-                </a>
-            {% endif %}
-            </div>
-
-            <div class="col-md-6 text-right">
-            {% if pagination.page < pagination.page_count %}
-                <a href="{{ path('blog', {'p': pagination.page + 1}) }}">
-                    Entrades anteriors
-                    <span class="oi oi-arrow-right" aria-hidden="true"></span>
-                </a>
-            {% endif %}
-            </div>
-        </div>
-    {% endif %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('blog') }}
 {% endblock %}

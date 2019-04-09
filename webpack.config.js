@@ -20,6 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('album', './assets/js/album.js')
     .addEntry('scroll', './assets/js/scroll.js')
+    .addEntry('blog', './assets/js/blog.jsx')
     .addEntry('history', './assets/js/history.jsx')
 
     // will require an extra script tag for runtime.js

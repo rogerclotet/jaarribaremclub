@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
-    private const POSTS_PER_PAGE = 5;
+    public const POSTS_PER_PAGE = 5;
+
     private $fileHandler;
 
     public function __construct(FileHandler $fileHandler)
@@ -28,7 +29,7 @@ class BlogController extends AbstractController
      */
     public function blogAction(Request $request)
     {
-        $page   = $request->get('p', 1);
+        $page = $request->get('p', 1);
         if ($page < 0) {
             return $this->redirectToRoute('blog');
         }
@@ -71,6 +72,7 @@ class BlogController extends AbstractController
         $parameters = [
             'next'       => $next,
             'posts'      => $posts,
+            'count'      => $count,
             'pagination' => [
                 'page'       => $page,
                 'page_count' => $count / self::POSTS_PER_PAGE,
@@ -85,7 +87,11 @@ class BlogController extends AbstractController
             }
 
             $parameters['form_create'] = $this->createForm(PostType::class, $post)->createView();
-            $parameters['form_next']   = $this->createForm(NextCaminadaType::class, $next, ['action' => $this->generateUrl('set_next_caminada')])->createView();
+            $parameters['form_next']   = $this->createForm(
+                NextCaminadaType::class,
+                $next,
+                ['action' => $this->generateUrl('set_next_caminada')]
+            )->createView();
         }
 
         return $this->render('web/blog.html.twig', $parameters);
