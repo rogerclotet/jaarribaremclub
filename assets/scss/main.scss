@@ -160,8 +160,8 @@ a {
     }
 
     @media (max-width: 989px) {
-      margin-left: 10px;
       color: white !important;
+      line-height: 36px;
 
       &:visited, &:active {
         background-color: $primaryColor;
